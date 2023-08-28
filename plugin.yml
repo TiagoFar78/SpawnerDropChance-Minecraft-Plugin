@@ -1,0 +1,4 @@
+name: TF_SpawnerDropChance
+version: 1.0
+author: TiagoFar78
+main: pombacraft.spawnerdropchange.SpawnerDropChance
