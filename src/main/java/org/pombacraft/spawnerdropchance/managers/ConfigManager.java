@@ -12,14 +12,20 @@ public class ConfigManager {
 	}
 	
 	private double _dropChance;
+	private int _minimumStackAmount;
 	
 	private ConfigManager() {
 		YamlConfiguration config = SpawnerDropChance.getYamlConfiguration();
 		
 		_dropChance = config.getDouble("DropChance");
+		_minimumStackAmount = config.getInt("MinimumStackAmount");
 	}
 
 	public double getDropChance() {
 		return _dropChance;
+	}
+	
+	public int getMinimumStackAmount() {
+		return _minimumStackAmount;
 	}
 }

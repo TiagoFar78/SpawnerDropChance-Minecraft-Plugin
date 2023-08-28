@@ -18,25 +18,25 @@ import com.bgsoftware.wildstacker.api.objects.StackedSpawner;
 
 public class Events implements Listener {
 	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.LOW)
     public void onBlockExplode(BlockExplodeEvent e) {
         handleExplosion(e.blockList());
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onEntityExplode(EntityExplodeEvent e) {
         handleExplosion(e.blockList());
     }
 
     private void handleExplosion(List<Block> blocks) {
-    	double dropChance = ConfigManager.getInstance().getDropChance();
+    	ConfigManager configManager = ConfigManager.getInstance();
+    	double dropChance = configManager.getDropChance();
+    	int minimumStackAmount = configManager.getMinimumStackAmount();
     	
     	List<Block> blocksToRemove = new ArrayList<Block>();
     	
-    	if (Math.random() < dropChance) {
-    		return;
-    	}
-    	
+    	boolean shouldDrop = Math.random() < dropChance;
+
     	for (Block block : blocks) {
     		if (block.getType() == Material.SPAWNER) {
     			blocksToRemove.add(block);
@@ -44,11 +44,15 @@ public class Events implements Listener {
     	}
     	
     	for (Block block : blocksToRemove) {
-    		blocks.remove(block);
-    		
     		StackedSpawner stackedSpawner = WildStackerAPI.getStackedSpawner((CreatureSpawner) block.getState());
-    		stackedSpawner.runUnstack(stackedSpawner.getStackAmount());
+    		if (stackedSpawner.getStackAmount() < minimumStackAmount || !shouldDrop) {
+        		blocks.remove(block);
+        		stackedSpawner.runUnstack(stackedSpawner.getStackAmount() + 2);
+        		block.setType(Material.AIR);
+    		}
     	}
+    	
+    	
     }
 
 }
