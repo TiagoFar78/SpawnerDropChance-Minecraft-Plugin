@@ -1,1 +1,1 @@
-A minecraft plugin to manage Spawners Drop Chance
+With this plugin it is possible control the amount of spawners that is dropped on explosions. It is really usefull in Factions servers. It also allows to set a minimum number of spawners to drop so that players can use spawners that were generated naturally.
