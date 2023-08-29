@@ -31,7 +31,8 @@ public class Events implements Listener {
         handleExplosion(e.blockList(), e.getEntityType());
     }
 
-    private void handleExplosion(List<Block> blocks, EntityType entity) {
+    @SuppressWarnings("deprecation")
+	private void handleExplosion(List<Block> blocks, EntityType entity) {
     	ConfigManager configManager = ConfigManager.getInstance();
     	double dropChance = configManager.getDropChance();
     	int minimumStackAmount = configManager.getMinimumStackAmount();
@@ -58,8 +59,8 @@ public class Events implements Listener {
         		block.setType(Material.AIR);
     		}
     		
-    		executeLogsCommands(configManager, creatureSpawner.toString(), stackAmount, block.getLocation(), entity.toString(), !wontDrop);
-    	}    	
+    		executeLogsCommands(configManager, creatureSpawner.getCreatureTypeName(), stackAmount, block.getLocation(), entity.toString(), !wontDrop);
+    	}
     }
     
     private void executeLogsCommands(ConfigManager configManager, String creature, int amount, Location loc, String explosionType, boolean dropped) {
