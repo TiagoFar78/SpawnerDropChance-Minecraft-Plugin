@@ -1,2 +1,4 @@
 DropChance: 0.5
 MinimumStackAmount: 2
+LogsCommands:
+- "pombanotifications dwebhook spawner-exploded Um spawner do tipo %creature% x%amount% foi explodido em %block_x%/%block_y%/%block_z% por %explosion% and dropped=%dropped%"
